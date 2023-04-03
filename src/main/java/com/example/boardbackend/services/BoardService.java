@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class BoardService {
      * 게시글 수정
      */
     public BoardEntity update(BoardDto boardDto) {
-        System.out.println("print : "+boardRepository.findById(boardDto.getId()));
+        System.out.println("print : " + boardRepository.findById(boardDto.getId()));
         BoardEntity entity = boardRepository.findById(boardDto.getId()).orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
         entity.setUser_id(boardDto.getUser_id());
         entity.setTitle(boardDto.getTitle());
@@ -82,5 +81,17 @@ public class BoardService {
     public void delete(Long id) {
         BoardEntity entity = boardRepository.findById(id).orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
         boardRepository.delete(entity);
+    }
+
+    public List<String> getTestItem() {
+        List<String> myList = new ArrayList<>();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        myList.add("apple");
+        myList.add("banana");
+        myList.add(String.valueOf(currentDateTime));
+        System.out.println(myList);
+        // 로컬 컴퓨터의 현재 날짜와 시간 정보
+        // LocalDateTime targetDateTime = LocalDateTime.of(2019, 11, 12, 12, 32,22,3333);
+        return myList;
     }
 }
